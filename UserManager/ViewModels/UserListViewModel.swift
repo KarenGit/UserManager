@@ -57,14 +57,6 @@ class UserListViewModel {
     }
     
     func saveUserAction(_ users: [User]) {
-//        users.forEach { (user) in
-//            let isSaved = self.realm.objects(RealmUserModel.self).contains(where: { $0.id == user.id })
-//            if !isSaved {
-//                self.realm.beginWrite()
-//                self.realm.add(RealmManager.addUserModel(user))
-//                try! self.realm.commitWrite()
-//            }
-//        }
         var realmUserModels: [RealmUserModel] = []
         users.forEach { (user) in
             let isSaved = self.realm.objects(RealmUserModel.self).contains(where: { $0.id == user.id })
@@ -88,25 +80,6 @@ class UserListViewModel {
         }
         
         self.userModels = models
-        // TODO: remove
-        debugPrint(#function)
-        debugPrint(self.userModels)
-    }
-    
-    // TODO: remove
-    func deleteUserModel() {
-        DispatchQueue.main.async {
-            autoreleasepool {
-                let model = self.realm.objects(RealmUserModel.self).filter({ (userModel) -> Bool in
-                    return true
-                })
-                if !model.isEmpty {
-                    try! self.realm.write {
-                        self.realm.delete(model)
-                    }
-                }
-            }
-        }
     }
     
     
